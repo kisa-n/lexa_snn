@@ -22,3 +22,13 @@ bool quehappend(void* whus,/* int har,*/ queue_element**startque) {
 	//fprintf(glog, ";q;");
 	return(0);
 }
+
+void delete_queue(queue_element * &ptr){
+	queue_element* iter = ptr;
+	while (iter) {
+		iter = ptr->nextquh;
+		delete ptr;
+		ptr = iter;
+	}
+
+}

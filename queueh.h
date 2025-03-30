@@ -10,3 +10,5 @@ struct queue_element {
 };
 
 bool quehappend(void* whus,/* int har,*/ queue_element**startque);
+
+void delete_queue(queue_element* &ptr);

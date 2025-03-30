@@ -109,6 +109,9 @@ void heron::create_links(heron ** senders, float * weights, char n_links){
 	if (int num_end = n_links - i * 32) {
 		branches[num_stacks_brances - 1][i].create(n_links - i * 32, senders, weights);
 	}
-
+	numbers_branches = (char*)realloc(numbers_branches, sizeof(char)*num_stacks_brances);
+	numbers_branches[num_stacks_brances - 1] = (n_links + 31) / 32;
 }
+
+
 

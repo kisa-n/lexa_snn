@@ -13,6 +13,7 @@ builder::~builder()
 
 float** builder::collapc_link(int pkrt, heron * frw, int sfx, int sfy, heron * wto, int stx, int sty) {
 //пока нет?
+	return nullptr;
 }
 
 void builder::linking(heron * from_where, int size_fr, heron * where_to, int size_to) {

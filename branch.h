@@ -60,6 +60,7 @@ inline float branch::change_all(position provise, subnet * may_layer, float stab
 		err_in_reab( may_layer, stability);
 		return (float)0;
 	}
+	return 0;
 }
 inline void branch::update_counters_and_gomeostat() {
 	char new_num_sp = 0;
