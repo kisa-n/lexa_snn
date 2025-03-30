@@ -1,22 +1,51 @@
 #include "builder.h"
+#include"heron.h"
 
 
+float ** restructer_copyf(float *start_list, int len) {
+	float**result = new float*[(len + 31) / 32];
+	int i;
+	for (i = 0; i < len / 32; i++) {
+		result[i] = new float[32];
+		for (int j = 0; j < 32; j++) {
+			result[i][j] = start_list[i * 32 + j];
+		}
+	}
+	if ((len + 31) / 32 > i) {
+		result[i] = new float[len - (len / 32) * 32];
+		for (int j = 0; j <len-(len / 32)*32 ; j++) {
+			result[i][j] = start_list[i * 32 + j];
+		}
+	}
 
-builder::builder()
-{
+	return result;
+}
+
+heron*** restructer_copyh(heron**start_list, int len) {
+	heron***result = new heron**[(len + 31) / 32];
+	int i;
+	for (i = 0; i < len / 32; i++) {
+		result[i] = new heron*[32];
+		for (int j = 0; j < 32; j++) {
+			result[i][j] = start_list[i * 32 + j];
+		}
+	}
+	if ((len + 31) / 32 > i) {
+		result[i] = new heron*[len - (len / 32) * 32];
+		for (int j = 0; j <len - (len / 32) * 32; j++) {
+			result[i][j] = start_list[i * 32 + j];
+		}
+	}
+	return result;
 }
 
 
-builder::~builder()
-{
-}
-
-float** builder::collapc_link(int pkrt, heron * frw, int sfx, int sfy, heron * wto, int stx, int sty) {
+float** collapc_link(int pkrt, heron * frw, int sfx, int sfy, heron * wto, int stx, int sty) {
 //пока нет?
 	return nullptr;
 }
 
-void builder::linking(heron * from_where, int size_fr, heron * where_to, int size_to) {
+void linking(heron * from_where, int size_fr, heron * where_to, int size_to) {
 	float* weights = 0;
 	heron** ptr = new heron*[size_fr];
 

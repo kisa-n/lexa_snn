@@ -3,22 +3,33 @@
 #include"subnet.h"
 #include"heron.h"
 #include"converter.h"
+#include"branch.h"
 
 int main() {
 // create inputs matrica 5x1:
-
+/*
 	int len = 45;
 	float * nets_input = new float[len];
 	mconverterf* conv=new mconverterf(&nets_input, len, 1);
 // create one heron:
-	heron* tests_h=new heron();
+	*/
 // create links to tests hero:
-	tests_h->create_links(conv->v_retlist(), len);
+	//tests_h->create_links(conv->v_retlist(), len);
 // herons work
 // пока нет?
 // delete all:
-	delete(tests_h);
-	delete_queue(dellist);
+	
+	heron** h = new heron*[2]{nullptr};
+	h[0] = new heron();
+	h[1] = new heron();
+
+	h[1]->create_links(h, 2);
+
+	
+
+	//delete(b1);
+	delete(h[1]);
+	//delete_queue(dellist);
 
 	printf("the end\n");
 	/*

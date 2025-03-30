@@ -1,8 +1,9 @@
 #pragma once
 #include "externs.h"
-#include"heron.h"
-#include"subnet.h"
-
+//#include"heron.h"
+//#include"subnet.h"
+class subnet;
+class heron;
 
 enum class position : int
 {
@@ -13,6 +14,7 @@ enum class position : int
 };
 
 class branch/*:private links*/{
+public:
 	float sigms_starts_num=0, sum_weights_past_sp = 0, charact_time_between_sp = 5;//chtbs-вначале ненулевое
 	char num_lately_sp = 0, num_links, counter_latest_sp = 0;
 	short counter_sigm=0, counter_gomeostat=0; 
@@ -31,12 +33,12 @@ class branch/*:private links*/{
 	void err_in_reab(subnet* may_layer, float stability);
 
 
-	inline void update_counters_and_gomeostat();
-	inline void gomeostatics_change(subnet* may_layer, float stability);
+	void update_counters_and_gomeostat();
+	void gomeostatics_change(subnet* may_layer, float stability);
 
 	void two_spikes_change(int iterator, subnet* may_layer);
 
-public:
+//public:
 
 	inline float change_all(position provise, subnet* may_layer, float stability);
 
@@ -62,39 +64,4 @@ inline float branch::change_all(position provise, subnet * may_layer, float stab
 	}
 	return 0;
 }
-inline void branch::update_counters_and_gomeostat() {
-	char new_num_sp = 0;
 
-	if (tiks_counter == 0)
-		for (int i = 0; i < num_links; i++) {
-			if (counters[i]) {
-				counters[i]++;
-			}
-			new_num_sp += m_links[i]->activations % 2;
-		}
-	else for (int i = 0; i < num_links; i++) {
-		if (counters[i] && counters[i] < 230) {
-			counters[i]++;
-		}
-		new_num_sp += m_links[i]->activations % 2;
-	}
-
-	counter_gomeostat += new_num_sp - num_lately_sp;
-	num_lately_sp = new_num_sp;	
-}
-inline void branch::gomeostatics_change(subnet* may_layer, float stability){
-
-	if ( - may_layer->max_dif_gomeostat >= counter_gomeostat) {
-		counter_gomeostat = 0;
-		for (int i = 0; i < num_links; i++) {
-			links_weights[i] += may_layer->measure_gomeostat_plast / stability;
-		}
-	}
-	else if (may_layer->max_dif_gomeostat <= counter_gomeostat) {
-		counter_gomeostat = 0;
-		for (int i = 0; i < num_links; i++) {
-			links_weights[i] -= may_layer->measure_gomeostat_plast / stability;
-		}
-	}
-
-}

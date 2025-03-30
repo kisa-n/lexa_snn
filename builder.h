@@ -1,21 +1,12 @@
 #pragma once
 #include"externs.h"
-#include"heron.h"
+class heron;
 
-class builder{
-public:
+float ** restructer_copyf(float *start_list, int len);
+heron*** restructer_copyh(heron**start_list, int len);
 
-	float** collapc_link(int pokrytie, heron * from_where, int size_fx, int size_fy, heron * where_to, int size_tx, int size_ty);
+float** collapc_link(int pokrytie, heron * from_where, int size_fx, int size_fy, heron * where_to, int size_tx, int size_ty);
 
-	//it is impractical to create links in a number(= size_fr) that is not a multiple of 32
-	void linking(heron* from_where, int size_f, heron* where_to, int size_t);
+//it is impractical to create links in a number(= size_fr) that is not a multiple of 32
+void linking(heron* from_where, int size_f, heron* where_to, int size_t);
 
-	inline heron* create_herons(int herons_num);
-
-	builder();
-	~builder();
-};
-
-inline heron * builder::create_herons(int herons_num) {
-	return new heron[herons_num];
-}

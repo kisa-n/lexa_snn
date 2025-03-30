@@ -1,6 +1,7 @@
 #include "heron.h"
 #include"branch.h"
 #include"subnet.h"
+#include"builder.h"
 
 
 void heron::herons_in_reab(subnet* may_layer){
@@ -89,12 +90,10 @@ void heron::herons_work(subnet * may_layer){
 
 }
 
-//it is impractical to create links in a number that is not a multiple of 32
-void heron::create_links(heron ** senders, float * weights, char n_links){
+void heron::create_links32(heron *** senders, float ** weights, char n_links){
 	int i = 0;
-	sizeof(branch);
-	
-	if (branches){
+
+	if (branches) {
 		branches = (branch**)realloc(branches, num_stacks_brances++);
 	}
 	else {
@@ -102,18 +101,31 @@ void heron::create_links(heron ** senders, float * weights, char n_links){
 		num_stacks_brances = 1;
 	}
 
-	branches[num_stacks_brances - 1] = new branch[(n_links + 31) / 32];
+	branches[num_stacks_brances - 1] = new branch[(n_links+31)/32];
 	for (i = 0; i < n_links / 32; i++) {
-		branches[num_stacks_brances - 1][i].create(n_links - i * 32, senders, weights);
+		branches[num_stacks_brances - 1][i].create(32, senders[i], weights[i]);
 	}
 	if (int num_end = n_links - i * 32) {
-		branches[num_stacks_brances - 1][i].create(n_links - i * 32, senders, weights);
+		branches[num_stacks_brances - 1][i].create(num_end, senders[i], weights[i]);
 	}
-	if(numbers_branches)
+	if (numbers_branches)
 		numbers_branches = (char*)realloc(numbers_branches, sizeof(char)*num_stacks_brances);
 	else numbers_branches = (char*)malloc(1);
 	numbers_branches[num_stacks_brances - 1] = (n_links + 31) / 32;
+
 }
 
 
+void heron::create_links(heron ** senders, float * weights, char n_links) {
 
+	create_links32(restructer_copyh(senders, n_links), restructer_copyf(weights, n_links), n_links);
+
+}
+
+void heron::create_links(heron ** senders, char n_links) {
+	float* weights = new float[n_links];
+	for (int i = 0; i < n_links; i++) {
+		weights[i] = ((float)rand() - (float)20) / (float)1000;
+	}
+	create_links(senders, weights, n_links);
+}

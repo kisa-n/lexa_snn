@@ -1,6 +1,7 @@
 #include "branch.h"
 #include"externs.h"
-
+#include"subnet.h"
+#include"heron.h"
 
 bool tik = 0;
 char tiks_counter = 1;
@@ -106,6 +107,44 @@ void branch::start_reab(subnet * may_layer, float stability) {
 			}
 		}
 	}
+}
+
+void branch::update_counters_and_gomeostat() {
+	char new_num_sp = 0;
+
+	if (tiks_counter == 0)
+		for (int i = 0; i < num_links; i++) {
+			if (counters[i]) {
+				counters[i]++;
+			}
+			new_num_sp += m_links[i]->activations % 2;
+		}
+	else for (int i = 0; i < num_links; i++) {
+		if (counters[i] && counters[i] < 230) {
+			counters[i]++;
+		}
+		new_num_sp += m_links[i]->activations % 2;
+	}
+
+	counter_gomeostat += new_num_sp - num_lately_sp;
+	num_lately_sp = new_num_sp;
+}
+
+void branch::gomeostatics_change(subnet* may_layer, float stability) {
+
+	if (-may_layer->max_dif_gomeostat >= counter_gomeostat) {
+		counter_gomeostat = 0;
+		for (int i = 0; i < num_links; i++) {
+			links_weights[i] += may_layer->measure_gomeostat_plast / stability;
+		}
+	}
+	else if (may_layer->max_dif_gomeostat <= counter_gomeostat) {
+		counter_gomeostat = 0;
+		for (int i = 0; i < num_links; i++) {
+			links_weights[i] -= may_layer->measure_gomeostat_plast / stability;
+		}
+	}
+
 }
 
 
