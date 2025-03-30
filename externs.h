@@ -58,7 +58,7 @@ inline unsigned long stepen2(char n) {
 	case(32):return(4294967295);//2^32-1
 	default:
 		n = 0;//crash program
-		*((int*)((int)n)) = 0;
+		*((int*)((long long)n)) = 0;
 	}
 	return(0);
 }

@@ -16,19 +16,14 @@ subnet::subnet()
 
 
 subnet::~subnet(){
-	queue_element* buffer_list = dellist,* iterator=0;
+	queue_element* buffer_list = dellist;
 	dellist = 0;
 
 	delete list_input;
 	delete list_inside;
 	delete list_output;
 	// detected warning to create branch
-	iterator = dellist;
-	while (dellist) {
-		iterator = dellist->nextquh;
-		delete dellist;
-		dellist = iterator;
-	}
+	delete_queue(dellist);
 	dellist = buffer_list;
 }
 

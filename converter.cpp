@@ -25,7 +25,7 @@ void mconverterf::iteration() {
 			
 			if (input[j][i] >= 1) {
 				
-				realTs[i*size[0] + j] = minT * 100 / log(input[j][i]);	
+				realTs[i*size[0] + j] =(int)( minT * 100 / log(input[j][i]));	
 				if (realTs[i*size[0] + j] < timers[i*size[0] + j]) timers[i*size[0] + j] = realTs[i*size[0] + j];
 			
 			}
@@ -45,8 +45,8 @@ void mconverterf::iteration() {
 heron** mconverterf::v_retlist() {
 	char** result = (char**)malloc(sizeof(void*)*size[0]*size[1]);
 	result[0] = outputs;
-	for (int j = 1; j < size[1]; j++)
-		result[j] = (char*)((long long)result[0] + j);
+	for (int j = 1; j < size[1]*size[0]; j++)
+		result[j] = (char*)((long long)result[0] + (long long)j);
 	return((heron**)result);
 }
 
