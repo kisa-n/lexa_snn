@@ -6,20 +6,21 @@
 
 int main() {
 // create inputs matrica 5x1:
+/*
 	int len = 5;
 	float * nets_input = new float[len];
-	mconverterf conv(&nets_input, len, 1);
+	mconverterf conv(&nets_input, len, 1);*/
 // create one heron:
-	heron tests_h=heron();
+	heron tests_h;
 // create links to tests hero:
-	tests_h.create_links(conv.v_retlist(), len);
+	//tests_h.create_links(conv.v_retlist(), len);
 // herons work
 // пока нет?
 // delete all:
 	delete(&tests_h);
 	delete_queue(dellist);
 
-
+	printf("the end\n");
 	/*
 	tests_h.activations = 1;
 

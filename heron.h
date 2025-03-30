@@ -22,6 +22,7 @@ private:
 	float stability = 1; // ý[1;+<x>)
 	branch** branches = nullptr;
 	char* numbers_branches = 0;
+
 	void herons_in_reab(subnet* may_layer);
 };
 
