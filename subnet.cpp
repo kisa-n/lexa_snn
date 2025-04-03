@@ -19,9 +19,9 @@ subnet::~subnet(){
 	queue_element* buffer_list = dellist;
 	dellist = 0;
 
-	delete list_input;
-	delete list_inside;
-	delete list_output;
+	free( list_input );
+	free( list_inside);
+	free( list_output);
 	// detected warning to create branch
 	delete_queue(dellist);
 	dellist = buffer_list;

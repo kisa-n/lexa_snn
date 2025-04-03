@@ -6,7 +6,7 @@
 #include"branch.h"
 
 heron**copy(heron** start, int len) {
-	heron** res = new heron*[len];
+	heron** res = (heron**)malloc(sizeof(heron*)*len);
 	for (int i = 0; i < len; i++) {
 		res[i] = start[i];
 	}
@@ -27,7 +27,7 @@ int main() {
 // пока нет?
 // delete all:
 	
-	heron** h = new heron*[2]{nullptr};
+	heron** h = (heron**)malloc(sizeof(heron*) * 2);
 	h[0] = new heron();
 	h[1] = new heron();
 

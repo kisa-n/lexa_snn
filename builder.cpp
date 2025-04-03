@@ -3,42 +3,42 @@
 
 // will deleted starts list
 float ** frestructer32(float* &start_list, int len) {
-	float**result = new float*[(len + 31) / 32];
+	float**result = (float**)malloc(sizeof(float*) * ((len + 31) / 32)); 
 	int i;
 	for (i = 0; i < len / 32; i++) {
-		result[i] = new float[32];
+		result[i] = (float*)malloc(sizeof(float) * 32);
 		for (int j = 0; j < 32; j++) {
 			result[i][j] = start_list[i * 32 + j];
 		}
 	}
 	if (int end_num = len - i * 32) {
-		result[i] = new float[end_num];
+		result[i] = (float*)malloc(sizeof(float) * 32);
 		for (int j = 0; j <end_num; j++) {
 			result[i][j] = start_list[i * 32 + j];
 		}
 	}
-	delete start_list;
+	free( start_list);
 	start_list = 0;
 	return result;
 }
 
 // will deleted starts list
 heron*** hrestructer32(heron** &start_list, int len) {
-	heron***result = new heron**[(len + 31) / 32];
+	heron***result = (heron***)malloc(sizeof(heron**)*((len + 31) / 32));
 	int i;
 	for (i = 0; i < len / 32; i++) {
-		result[i] = new heron*[32];
+		result[i] = (heron**)malloc(sizeof(heron*)*32);
 		for (int j = 0; j < 32; j++) {
 			result[i][j] = start_list[i * 32 + j];
 		}
 	}
 	if (int end_num= len - i*32) {
-		result[i] = new heron*[end_num];
+		result[i] = (heron**)malloc(sizeof(heron*) * end_num);
 		for (int j = 0; j <end_num; j++) {
 			result[i][j] = start_list[i * 32 + j];
 		}
 	}
-	delete start_list;
+	free(start_list);
 	start_list = 0;
 	return result;
 }
@@ -51,7 +51,7 @@ float** collapc_link(int pkrt, heron * frw, int sfx, int sfy, heron * wto, int s
 
 void linking(heron * from_where, int size_fr, heron * where_to, int size_to) {
 	float* weights = 0;
-	heron** ptr = new heron*[size_fr];
+	heron** ptr = (heron**)malloc(sizeof(heron*) * size_fr);
 
 	for (int i = 0; i < size_fr; i++) {
 		ptr[i] = &from_where[i];
@@ -59,7 +59,7 @@ void linking(heron * from_where, int size_fr, heron * where_to, int size_to) {
 
 	for (int i = 0; i < size_to; i++) {
 
-		weights = new float[size_fr];
+		weights = (float*)malloc(sizeof(float) * size_fr);
 		for (int j = 0; j < size_fr; j++) {
 			weights[j] = ((float)rand() - 20) / ((float)1000);
 		}

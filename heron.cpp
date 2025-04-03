@@ -115,7 +115,7 @@ void heron::create_links32(heron *** senders, float ** weights, char n_links){
 	for (i = 0; i < n_links / 32; i++) {
 		branches[num_stacks_brances - 1][i].create(32, senders[i], weights[i]);
 	}
-	if (int num_end = n_links - i * 32) {
+	if (int num_end = n_links%32) {
 		branches[num_stacks_brances - 1][i].create(num_end, senders[i], weights[i]);
 	}
 	if (numbers_branches)
@@ -133,16 +133,16 @@ void heron::create_links(heron ** senders, float * weights, char n_links) {
 }
 
 void heron::create_links(heron ** senders, char n_links) {
-	float**result = new float*[(n_links + 31) / 32];
+	float**result = (float**)malloc(sizeof(float*)*((n_links + 31) / 32));
 	int i;
 	for (i = 0; i < n_links / 32; i++) {
-		result[i] = new float[32];
+		result[i] = (float*)malloc(sizeof(float)*32);
 		for (int j = 0; j < 32; j++) {
 			result[i][j] = ((float)rand() - (float)20) / (float)1000;
 		}
 	}
-	if (int end_num = n_links - i * 32) {
-		result[i] = new float[end_num];
+	if (int end_num = n_links%32) {
+		result[i] = (float*)malloc(sizeof(float) * end_num);
 		for (int j = 0; j <end_num; j++) {
 			result[i][j] = ((float)rand() - (float)20) / (float)1000;
 		}

@@ -12,7 +12,7 @@ public:
 	~mconverterf() {
 		free(timers);
 		free(realTs);
-		free(outputs);
+		delete [] outputs;
 	}
 	
 	void iteration();

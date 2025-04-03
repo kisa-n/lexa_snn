@@ -183,8 +183,8 @@ void branch::create(int n_links, heron ** links, float * weights){
 
 
 branch::~branch(){
-	if (counters)delete counters;
-	if (diffs)delete diffs;
+	if (counters)delete[] counters;
+	if (diffs)delete[] diffs;
 	if (m_links)quehappend(m_links, &dellist);
 	if (links_weights)quehappend(links_weights, &dellist);
 	counters = 0;
