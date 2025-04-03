@@ -1,8 +1,8 @@
 #include "builder.h"
 #include"heron.h"
 
-
-float ** restructer_copyf(float *start_list, int len) {
+// will deleted starts list
+float ** frestructer32(float* &start_list, int len) {
 	float**result = new float*[(len + 31) / 32];
 	int i;
 	for (i = 0; i < len / 32; i++) {
@@ -11,17 +11,19 @@ float ** restructer_copyf(float *start_list, int len) {
 			result[i][j] = start_list[i * 32 + j];
 		}
 	}
-	if ((len + 31) / 32 > i) {
-		result[i] = new float[len - (len / 32) * 32];
-		for (int j = 0; j <len-(len / 32)*32 ; j++) {
+	if (int end_num = len - i * 32) {
+		result[i] = new float[end_num];
+		for (int j = 0; j <end_num; j++) {
 			result[i][j] = start_list[i * 32 + j];
 		}
 	}
-
+	delete start_list;
+	start_list = 0;
 	return result;
 }
 
-heron*** restructer_copyh(heron**start_list, int len) {
+// will deleted starts list
+heron*** hrestructer32(heron** &start_list, int len) {
 	heron***result = new heron**[(len + 31) / 32];
 	int i;
 	for (i = 0; i < len / 32; i++) {
@@ -30,12 +32,14 @@ heron*** restructer_copyh(heron**start_list, int len) {
 			result[i][j] = start_list[i * 32 + j];
 		}
 	}
-	if ((len + 31) / 32 > i) {
-		result[i] = new heron*[len - (len / 32) * 32];
-		for (int j = 0; j <len - (len / 32) * 32; j++) {
+	if (int end_num= len - i*32) {
+		result[i] = new heron*[end_num];
+		for (int j = 0; j <end_num; j++) {
 			result[i][j] = start_list[i * 32 + j];
 		}
 	}
+	delete start_list;
+	start_list = 0;
 	return result;
 }
 

@@ -2,8 +2,13 @@
 #include"externs.h"
 class heron;
 
-float ** restructer_copyf(float *start_list, int len);
-heron*** restructer_copyh(heron**start_list, int len);
+
+// will deleted starts list
+float ** frestructer32(float* &start_list, int len);
+
+
+// will deleted starts list
+heron*** hrestructer32(heron** &start_list, int len);
 
 float** collapc_link(int pokrytie, heron * from_where, int size_fx, int size_fy, heron * where_to, int size_tx, int size_ty);
 

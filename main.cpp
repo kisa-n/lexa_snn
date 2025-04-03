@@ -5,6 +5,14 @@
 #include"converter.h"
 #include"branch.h"
 
+heron**copy(heron** start, int len) {
+	heron** res = new heron*[len];
+	for (int i = 0; i < len; i++) {
+		res[i] = start[i];
+	}
+	return res;
+}
+
 int main() {
 // create inputs matrica 5x1:
 /*
@@ -23,7 +31,7 @@ int main() {
 	h[0] = new heron();
 	h[1] = new heron();
 
-	h[1]->create_links(h, 2);
+	h[1]->create_links(copy(h,2), 2);
 
 	
 

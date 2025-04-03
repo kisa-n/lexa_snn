@@ -187,5 +187,20 @@ branch::~branch(){
 	if (diffs)delete diffs;
 	if (m_links)quehappend(m_links, &dellist);
 	if (links_weights)quehappend(links_weights, &dellist);
+	counters = 0;
+	diffs = 0;
+	m_links = 0;
+	links_weights = 0;
+}
+
+void branch::destroed(){
+	if (counters)delete counters;
+	if (diffs)delete diffs;
+	if (m_links)quehappend(m_links, &dellist);
+	if (links_weights)quehappend(links_weights, &dellist);
+	counters = 0;
+	diffs = 0;
+	m_links = 0;
+	links_weights = 0;
 }
 

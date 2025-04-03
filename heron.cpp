@@ -34,10 +34,15 @@ void heron::herons_in_reab(subnet* may_layer){
 
 heron::~heron(){
 
-	for (int i = 0; i < num_stacks_brances; i++){
-		delete branches[i];
+	if (branches) {
+		for (int i = 0; i < num_stacks_brances; i++) {
+			for (int j = 0; j < numbers_branches[i]; j++) {
+				branches[i][j].destroed();
+			}
+			free(branches[i]);
+		}
+		delete branches;
 	}
-	if(branches)delete branches;
 	if(numbers_branches)delete numbers_branches;
 }
 
@@ -94,7 +99,7 @@ void heron::create_links32(heron *** senders, float ** weights, char n_links){
 	int i = 0;
 
 	if (branches) {
-		branches = (branch**)realloc(branches, num_stacks_brances++);
+		branches = (branch**)realloc(branches, sizeof(void*)*(num_stacks_brances++));
 	}
 	else {
 		branches = (branch**)malloc(sizeof(void*));
@@ -110,7 +115,7 @@ void heron::create_links32(heron *** senders, float ** weights, char n_links){
 	}
 	if (numbers_branches)
 		numbers_branches = (char*)realloc(numbers_branches, sizeof(char)*num_stacks_brances);
-	else numbers_branches = (char*)malloc(1);
+	else numbers_branches = (char*)malloc(sizeof(char));
 	numbers_branches[num_stacks_brances - 1] = (n_links + 31) / 32;
 
 }
@@ -118,14 +123,25 @@ void heron::create_links32(heron *** senders, float ** weights, char n_links){
 
 void heron::create_links(heron ** senders, float * weights, char n_links) {
 
-	create_links32(restructer_copyh(senders, n_links), restructer_copyf(weights, n_links), n_links);
+	create_links32(hrestructer32(senders, n_links), frestructer32(weights, n_links), n_links);
 
 }
 
 void heron::create_links(heron ** senders, char n_links) {
-	float* weights = new float[n_links];
-	for (int i = 0; i < n_links; i++) {
-		weights[i] = ((float)rand() - (float)20) / (float)1000;
+	float**result = new float*[(n_links + 31) / 32];
+	int i;
+	for (i = 0; i < n_links / 32; i++) {
+		result[i] = new float[32];
+		for (int j = 0; j < 32; j++) {
+			result[i][j] = ((float)rand() - (float)20) / (float)1000;
+		}
 	}
-	create_links(senders, weights, n_links);
+	if (int end_num = n_links - i * 32) {
+		result[i] = new float[end_num];
+		for (int j = 0; j <end_num; j++) {
+			result[i][j] = ((float)rand() - (float)20) / (float)1000;
+		}
+	}
+
+	create_links32(hrestructer32(senders, n_links), result, n_links);
 }
