@@ -1,7 +1,6 @@
 #pragma once
 #include"externs.h"
-
-
+#include <cstdint>
 
 class subnet;
 class branch;
@@ -22,10 +21,10 @@ public:
 	//list type: XxYx32
 	void create_links32(heron***senders, float** weights, char n_links);
 //private:
-	char num_stacks_brances = 0, counter_reab = 0;
-	float stability = 1; // ý[1;+<x>)
+	int8_t num_stacks_brances = 0, counter_reab = 0;
+	float stability = 1; // ï¿½[1;+<x>)
 	branch** branches = nullptr;
-	char* numbers_branches = 0;
+	char* numbers_branches = nullptr;
 
 	void herons_in_reab(subnet* may_layer);
 };

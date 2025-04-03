@@ -2,7 +2,7 @@
 #include"branch.h"
 #include"subnet.h"
 #include"builder.h"
-
+#include <stdexcept>
 
 void heron::herons_in_reab(subnet* may_layer){
 	int i = 0;
@@ -39,11 +39,12 @@ heron::~heron(){
 			for (int j = 0; j < numbers_branches[i]; j++) {
 				branches[i][j].destroed();
 			}
-			free(branches[i]);
+			delete [] branches[i];
 		}
-		delete branches;
+        free(branches);
 	}
-	if(numbers_branches)delete numbers_branches;
+	if(numbers_branches)
+        free(numbers_branches);
 }
 
 void heron::herons_work(subnet * may_layer){
@@ -99,6 +100,10 @@ void heron::create_links32(heron *** senders, float ** weights, char n_links){
 	int i = 0;
 
 	if (branches) {
+        if (0 == num_stacks_brances)
+        {
+            throw std::runtime_error("num_stacks_brances = 0");
+        }
 		branches = (branch**)realloc(branches, sizeof(void*)*(num_stacks_brances++));
 	}
 	else {
