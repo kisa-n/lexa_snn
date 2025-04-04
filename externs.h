@@ -11,11 +11,12 @@
 #define _tall_v 32  // period "BblCOKON chastoty" B TIK-ax
 #define _kakie 1000 // float n=  (float)(signed char pn) / (float)_kakie_
 
-
+class heron;
 
 extern bool tik;
 extern char tiks_counter;
 extern queue_element* dellist;
+extern heron zero;
 /* every tik
 counter_i++;
 if (counter_i > 230)counter_i = 0;

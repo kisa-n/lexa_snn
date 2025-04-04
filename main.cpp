@@ -5,38 +5,32 @@
 #include"converter.h"
 #include"branch.h"
 
-heron**copy(heron** start, int len) {
-	heron** res = (heron**)malloc(sizeof(heron*)*len);
-	for (int i = 0; i < len; i++) {
-		res[i] = start[i];
-	}
-	return res;
-}
 
 int main() {
 // create inputs matrica 5x1:
-/*
+
 	int len = 45;
-	float * nets_input = new float[len];
+	float * nets_input = (float*)malloc(sizeof(float)*len);
 	mconverterf* conv=new mconverterf(&nets_input, len, 1);
 // create one heron:
-	*/
+	heron* h = new heron();
 // create links to tests hero:
-	//tests_h->create_links(conv->v_retlist(), len);
+	h->create_links(conv->v_retlist(), len);
 // herons work
 // пока нет?
 // delete all:
-	
+	delete(h);
+	/*
 	heron** h = (heron**)malloc(sizeof(heron*) * 2);
 	h[0] = new heron();
 	h[1] = new heron();
 
 	h[1]->create_links(copy(h,2), 2);
-
+	*/
 	
-
-	//delete(b1);
-	delete(h[1]);
+	
+	
+	//delete(h[1]);
 	//delete_queue(dellist);
 
 	printf("the end\n");
