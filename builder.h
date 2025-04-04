@@ -1,6 +1,7 @@
 #pragma once
 #include"externs.h"
-class heron;
+#include"heron.h"
+//class heron;
 
 
 // will deleted starts list
@@ -33,5 +34,12 @@ inline void linking_w(heron**from_where, float**weights, int size_fr, heron** wh
 	}
 }
 
+inline heron** new_layer(heron* list, int len) {
+	heron** res = (heron**)malloc(sizeof(void*)*len);
+	for (int i = 0; i < len; i++) {
+		res[i] = &list[i];
+	}
+	return res;
+}
 
 heron**copy(heron** start, int len);
