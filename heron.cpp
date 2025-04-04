@@ -36,9 +36,6 @@ heron::~heron(){
 
 	if (branches) {
 		for (int i = 0; i < num_stacks_brances; i++) {
-			for (int j = 0; j < numbers_branches[i]; j++) {
-				branches[i][j].destroed();
-			}
 			delete [] branches[i];
 		}
         free(branches);

@@ -192,7 +192,7 @@ branch::~branch(){
 	m_links = 0;
 	links_weights = 0;
 }
-
+/*
 void branch::destroed(){
 	if (counters)delete[] counters;
 	if (diffs)delete [] diffs;
@@ -203,4 +203,4 @@ void branch::destroed(){
 	m_links = 0;
 	links_weights = 0;
 }
-
+*/

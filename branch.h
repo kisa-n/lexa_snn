@@ -46,7 +46,7 @@ public:
 
 	branch() {}
 	~branch();
-	void destroed();
+	//void destroed();
 };
 
 inline float branch::change_all(position provise, subnet * may_layer, float stability) {
