@@ -17,14 +17,19 @@ int main() {
 		nets_input[i] = ((float)rand()) * 2000;
 	}
 	nets_input[0] = (float)27646379876735487;
-	// create one heron:
-	/*heron* h = new heron();
+	/*/ create one heron:
+	heron* h = (heron*)malloc(sizeof(heron));
+	h->_heron();
+	h->~heron();
+
 // create links to tests hero:
-	h->create_links(conv->v_retlist(), len);
+	//h->create_links(conv->v_retlist(), len);
 // herons work
 // пока нет?
 // delete all:
-	delete(h);*/
+	
+	free(h);
+	
 	/*
 	heron** h = (heron**)malloc(sizeof(heron*) * 2);
 	h[0] = new heron();
@@ -46,22 +51,18 @@ int main() {
 	heron** la2__ = new_layer(lay2, 10);
 	h->create_links(la2__, 10);
 	*/
-	nh.list_input = new heron [32];
-	nh.list_inside = new heron[10];
-	nh.list_output= new heron();
+	heron** lay1=nh.new_layer(plase::INPUT, 32);
+	heron** lay2 = nh.new_layer(plase::INSIDE, 10);
+	heron** lay3 = nh.new_layer(plase::OUTPUT, 1);
 
-	nh.num_input =32;
-	nh.num_inside=10;
-	nh.num_output=1;
-
-	linking_a(nh.list_input, 32, nh.list_inside, 10);
-	heron**la1__ = new_layer(nh.list_input, 32);
-	nh.list_output->create_links(la1__, 32);
+	linking_b(lay1, 32, lay2, 10);
+	//heron**la1__ = new_layer(lay1, 32);
+	lay3[0]->create_links(lay1, 32);
 	heron** ldl;
-	linking_b((ldl=conv->v_retlist() ), len, la1__, 32);
+	linking_b((ldl=conv->v_retlist() ), len, lay1, 32);
 
-	heron** la2__ = new_layer(nh.list_inside, 10);
-	nh.list_output->create_links(la2__, 10);
+	//heron** la2__ = new_layer(lay2, 10);
+	lay3[0]->create_links(lay2, 10);
 
 	for (int i = 0; i < 10000; i++) {
 		tik=0;
@@ -77,8 +78,8 @@ int main() {
 			else printf("0");
 		}
 		printf("\n\n");
-		if (nh.list_output->activations) {
-			/*//printf("\n\n");
+		if (lay3[0]->activations) {
+			/* //printf("\n\n");
 			for (int j = 0; j < len; j++) {
 				if (ldl[j]->activations)
 					printf("t");
@@ -86,13 +87,13 @@ int main() {
 			}*/
 			printf("\n");
 			for (int j = 0; j < 32; j++) {
-				if (nh.list_input[j].activations)
+				if (lay1[j]->activations)
 					printf("t");
 				else printf("0");
 			}
 			printf("\n");
 			for (int j = 0; j < 10; j++) {
-				if (nh.list_inside[j].activations)
+				if (lay2[j]->activations)
 					printf("t");
 				else printf("0");
 			}
@@ -104,9 +105,8 @@ int main() {
 			printf("\n");
 	}
 	//delete(h[1]);
-	//delete_queue(dellist);
+	//delete_queue(dellist);*/
 
-	printf("the end\n");
 	/*
 	tests_h.activations = 1;
 
@@ -114,6 +114,10 @@ int main() {
 	fopen_s(&trash, "tr.txt", "w");
 	fwrite(&tests_h, sizeof(heron), 1, trash);
 	*/
+
+	nh.~subnet();
+	delete_queue(dellist);
+	printf("the end\n");
 
 	return(0);
 

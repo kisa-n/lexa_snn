@@ -16,15 +16,15 @@ float ** __frestructer32(float* start_list, int len);
 // will not deleted starts list
 heron*** __hrestructer32(heron** start_list, int len);
 
-float* collapc_link(int pokrytie, heron * from_where, int size_fx, int size_fy, heron * where_to, int size_tx, int size_ty);
+//pokrytie= 16 or 32 or 64 or 96
+float* collapc_link(int pokrytie, heron ** from_where, int size_fx, int size_fy, heron ** where_to, int size_tx, int size_ty);
 
 //it is impractical to create links in a number(= size_fr) that is not a multiple of 32
 void linking_a(heron* from_where, int size_f, heron* where_to, int size_t);
-
+//it is impractical to create links in a number(= size_fr) that is not a multiple of 32
 void linking_b(heron ** from_where, int size_fr, heron ** where_to, int size_to);
 
-// luchshe ipospolzovat etot
-void linking_c(heron *** from_where, int size_fr, heron ** where_to, int size_to);
+//void linking_c(heron *** from_where, int size_fr, heron ** where_to, int size_to);
 
 inline void linking_w(heron**from_where, float**weights, int size_fr, heron** where_to, int size_to) {
 	heron***ptr2 = __hrestructer32(from_where, size_fr);
@@ -34,12 +34,5 @@ inline void linking_w(heron**from_where, float**weights, int size_fr, heron** wh
 	}
 }
 
-inline heron** new_layer(heron* list, int len) {
-	heron** res = (heron**)malloc(sizeof(void*)*len);
-	for (int i = 0; i < len; i++) {
-		res[i] = &list[i];
-	}
-	return res;
-}
 
 heron**copy(heron** start, int len);

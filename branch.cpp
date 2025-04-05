@@ -173,6 +173,7 @@ inline void branch::two_spikes_change(int i, subnet* may_layer){
 }
 
 void branch::create(int n_links, heron ** links, float * weights){
+	//_branch();
 	num_links = n_links;
 	m_links = links;
 	links_weights = weights;
@@ -192,15 +193,4 @@ branch::~branch(){
 	m_links = 0;
 	links_weights = 0;
 }
-/*
-void branch::destroed(){
-	if (counters)delete[] counters;
-	if (diffs)delete [] diffs;
-	if (m_links)quehappend(m_links, &dellist);
-	if (links_weights)quehappend(links_weights, &dellist);
-	counters = 0;
-	diffs = 0;
-	m_links = 0;
-	links_weights = 0;
-}
-*/
+

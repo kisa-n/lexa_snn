@@ -46,7 +46,17 @@ public:
 
 	branch() {}
 	~branch();
-	//void destroed();
+
+	/*void _branch() {
+		sigms_starts_num = 0; sum_weights_past_sp = 0; charact_time_between_sp = 50;
+		num_lately_sp = 0; counter_latest_sp = 0;
+		counter_sigm = 0; counter_gomeostat = 0;
+		flags = 0; flags2 = 0;
+		counters = 0;
+		diffs = 0;
+		m_links = 0;
+		links_weights = 0;
+	}*/
 };
 
 inline float branch::change_all(position provise, subnet * may_layer, float stability) {

@@ -1,5 +1,5 @@
 #include"queueh.h"
-#include<stdio.h>
+#include<stdlib.h>
 
 bool quehappend(void* whus,/* int har,*/ queue_element**startque) {
 	//fprintf(glog, "*q*");
@@ -27,6 +27,7 @@ void delete_queue(queue_element * &ptr){
 	queue_element* iter = ptr;
 	while (iter) {
 		iter = ptr->nextquh;
+		free(ptr->who);
 		delete ptr;
 		ptr = iter;
 	}

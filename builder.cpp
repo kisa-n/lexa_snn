@@ -40,14 +40,14 @@ public:
 		}
 	}
 	
-	heron** to_ptrs(heron*list,heron* if_null){
+	heron** to_ptrs(heron**list,heron* if_null){
 		heron** ptr = (heron**)malloc(sizeof(void*) * 32);
 		for (int i = 0; i < 32; i++) {
 			int n = _ptrs[i] - dop*s_x;
 			if (n<0|| n%s_x-dop<0 || n%s_x>s_x-dop )
 				ptr[i] = if_null;
 			else {
-				ptr[i] = &list[  ( (n / s_x)/*nomer ctroki*/ * (s_x - 2 * dop) + (n%s_x - dop)/*nomer stolbza*/ )  ];
+				ptr[i] = list[  ( (n / s_x)/*nomer ctroki*/ * (s_x - 2 * dop) + (n%s_x - dop)/*nomer stolbza*/ )  ];
 			}
 		}
 		return ptr;
@@ -55,7 +55,7 @@ public:
 
 };
 
-float* collapc_link32(heron * from_where, int size_fx, int size_fy, heron * where_to, int size_tx, int size_ty) {
+float* collapc_link32(heron ** from_where, int size_fx, int size_fy, heron ** where_to, int size_tx, int size_ty) {
 	place_ptr32 matr(size_fx, size_fy, 4);// neobyazatelno 4
 	matr.set(0);
 	// polozhenie matricy i kak cdvigat
@@ -64,14 +64,16 @@ float* collapc_link32(heron * from_where, int size_fx, int size_fy, heron * wher
 	// weights list
 	float** weights = (float**)malloc(sizeof(float*));
 	*weights = (float*)malloc(sizeof(float) * 32);
-	// zadat vesa, esly nado
+	// zadat vesa
+	for(int i=0;i<32;i++)
+		weights[0][i]= ((float)rand() - 20) / _st_wei;
 
 	int k = 1;//metrica dvigaetcya zmeykoy
 	for (int i = 0; i < size_ty; i++) {
 		for (int j = 0; j < size_tx; j++) {
 			// links create
 			heron** ukhfd = matr.to_ptrs(from_where, &zero);
-			where_to[i*size_tx + j].create_links32(hrestructer32(ukhfd, 32), weights, 32);
+			where_to[i*size_tx + j]->create_links32(hrestructer32(ukhfd, 32), weights, 32);
 
 			// metrica give
 			matr.zdvid_rite((int)(iter_x + nackolko_x*(float)k) - (int)iter_x);
@@ -90,7 +92,6 @@ float* collapc_link32(heron * from_where, int size_fx, int size_fy, heron * wher
 	free(weights);
 	return(a);
 }
-
 
 // will deleted starts list
 float ** frestructer32(float* &start_list, int len) {
@@ -171,7 +172,7 @@ heron*** __hrestructer32(heron** start_list, int len) {
 	}
 	return result;
 }
-
+// do not use this
 void linking_a(heron * from_where, int size_fr, heron * where_to, int size_to) {
 	float* weights = 0;
 	heron** ptr = (heron**)malloc(sizeof(heron*) * size_fr);
@@ -208,8 +209,8 @@ void linking_b(heron ** from_where, int size_fr, heron ** where_to, int size_to)
 	}
 }
 
-// luchsh ispolzovat etot
-void linking_c(heron *** from_where, int size_fr, heron ** where_to, int size_to) {
+// luchsh ispolzovat etot <- сомнительно, пользователю лучше linking_b
+/*void linking_c(heron *** from_where, int size_fr, heron ** where_to, int size_to) {
 	float* weights = 0;
 	for (int i = 0; i < size_to; i++) {
 		weights = (float*)malloc(sizeof(float) * size_fr);
@@ -218,7 +219,7 @@ void linking_c(heron *** from_where, int size_fr, heron ** where_to, int size_to
 		}
 		where_to[i]->create_links32(from_where, frestructer32(weights, size_fr), size_fr);
 	}
-}
+}*/
 
 heron**copy(heron** start, int len){
 	heron** res = (heron**)malloc(sizeof(heron*)*len);
@@ -249,14 +250,16 @@ heron**copy(heron** start, int len){
 
 }
 */
-//pokrytie= 32 or 64 or 96
-float* collapc_link(int pokrytie, heron * from_where, int size_fx, int size_fy, heron * where_to, int size_tx, int size_ty) {
+//pokrytie= 16 or 32 or 64 or 96
+float* collapc_link(int pokrytie, heron ** from_where, int size_fx, int size_fy, heron ** where_to, int size_tx, int size_ty) {
 	if (size_fx*size_fy*size_tx*size_ty == 0)throw("bred\n");
 	if (size_fy<size_ty || size_fx<size_tx)throw("bred\n");
 	//пока нет?
 
 	//ron**ptrs = nullptr;
 	switch (pokrytie) {
+	case(16)://4x4
+
 	case(32)://6x6-4
 		
 		return collapc_link32(from_where, size_fx, size_fy, where_to, size_tx, size_ty);

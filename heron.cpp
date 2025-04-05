@@ -122,7 +122,7 @@ void heron::create_links32(heron *** senders, float ** weights, char n_links){
 
 }
 
-
+// warning: will by deleted 'senders' and 'weights'
 void heron::create_links(heron ** senders, float * weights, char n_links) {
 
 	create_links32(hrestructer32(senders, n_links), frestructer32(weights, n_links), n_links);
