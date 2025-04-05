@@ -15,7 +15,7 @@ enum class position : int
 
 class branch/*:private links*/{
 public:
-	float sigms_starts_num=0, sum_weights_past_sp = 0, charact_time_between_sp = 5;//chtbs-вначале ненулевое
+	float sigms_starts_num=0, sum_weights_past_sp = 0, charact_time_between_sp = 50;//chtbs-вначале ненулевое
 	char num_lately_sp = 0, num_links, counter_latest_sp = 0;
 	short counter_sigm=0, counter_gomeostat=0; 
 

@@ -10,7 +10,7 @@ queue_element* dellist;
 float branch::normal_tik( subnet * may_layer, float stability){
 	float sum_weights_new_sp = 0;
 	
-	counter_sigm++;
+	if(counter_sigm<1000)counter_sigm++;
 	if (counter_latest_sp)counter_latest_sp++;
 	update_counters_and_gomeostat();
 	
@@ -91,7 +91,7 @@ void branch::err_in_reab( subnet * may_layer, float stability) {
 	if (flags) {
 		for (int i = 0; i < num_links; i++) {
 			if (flags & stepen2(i)) {
-				links_weights[i] -= may_layer->ar_up / ((float)stability) + may_layer->gjdiyc;
+				links_weights[i] -= may_layer->ar_up / ((float)stability) + may_layer->gjdiyc/ ((float)stability);
 			}
 		}
 		flags = 0;
@@ -135,13 +135,13 @@ void branch::gomeostatics_change(subnet* may_layer, float stability) {
 	if (-may_layer->max_dif_gomeostat >= counter_gomeostat) {
 		counter_gomeostat = 0;
 		for (int i = 0; i < num_links; i++) {
-			links_weights[i] += may_layer->measure_gomeostat_plast / stability;
+			links_weights[i] += may_layer->measure_gomeostat_plast;// stability;
 		}
 	}
 	else if (may_layer->max_dif_gomeostat <= counter_gomeostat) {
 		counter_gomeostat = 0;
 		for (int i = 0; i < num_links; i++) {
-			links_weights[i] -= may_layer->measure_gomeostat_plast / stability;
+			links_weights[i] -= may_layer->measure_gomeostat_plast;// stability;
 		}
 	}
 

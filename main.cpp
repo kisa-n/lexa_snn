@@ -13,10 +13,10 @@ int main() {
 	float * nets_input = (float*)malloc(sizeof(float)*len);
 	mconverterf* conv=new mconverterf(&nets_input, 1, len);
 
-	for (int i = 0; i < len; i++) {
-		nets_input[i] = ((float)rand()) / 20;
+	for (int i = 1; i < len; i++) {
+		nets_input[i] = ((float)rand()) * 2000;
 	}
-
+	nets_input[0] = (float)27646379876735487;
 	// create one heron:
 	/*heron* h = new heron();
 // create links to tests hero:
@@ -57,34 +57,50 @@ int main() {
 	linking_a(nh.list_input, 32, nh.list_inside, 10);
 	heron**la1__ = new_layer(nh.list_input, 32);
 	nh.list_output->create_links(la1__, 32);
-
-	linking_b(conv->v_retlist(), len, la1__, 32);
+	heron** ldl;
+	linking_b((ldl=conv->v_retlist() ), len, la1__, 32);
 
 	heron** la2__ = new_layer(nh.list_inside, 10);
 	nh.list_output->create_links(la2__, 10);
 
-	for (int i = 0; i < 1000; i++) {
+	for (int i = 0; i < 10000; i++) {
 		tik=0;
 		nh.work_subnet_in_tik();
 		tik = 1;
 		nh.work_subnet_in_tik();
 		tiks_counter++;
 		conv->iteration();
-		for (int j = 0; j < 32; j++) {
-			if (nh.list_input[j].activations)
+		printf("\n%d\n",i);
+		for (int j = 0; j < len; j++) {
+			if (ldl[j]->activations)
 				printf("t");
 			else printf("0");
 		}
-		printf("\n");
-		for (int j = 0; j < 10; j++) {
-			if (nh.list_inside[j].activations)
-				printf("t");
-			else printf("0");
+		printf("\n\n");
+		if (nh.list_output->activations) {
+			/*//printf("\n\n");
+			for (int j = 0; j < len; j++) {
+				if (ldl[j]->activations)
+					printf("t");
+				else printf("0");
+			}*/
+			printf("\n");
+			for (int j = 0; j < 32; j++) {
+				if (nh.list_input[j].activations)
+					printf("t");
+				else printf("0");
+			}
+			printf("\n");
+			for (int j = 0; j < 10; j++) {
+				if (nh.list_inside[j].activations)
+					printf("t");
+				else printf("0");
+			}
+			printf("\nt\n\n");
+			tik = 1;
 		}
-		if(nh.list_output->activations)
-			printf("\nt\n");
-		else printf("\n0\n");
-			if (i % 100 == 0)
+		else printf("0");
+			if (i % 1000 == 0)
 			printf("\n");
 	}
 	//delete(h[1]);

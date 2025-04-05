@@ -185,7 +185,7 @@ void linking_a(heron * from_where, int size_fr, heron * where_to, int size_to) {
 
 		weights = (float*)malloc(sizeof(float) * size_fr);
 		for (int j = 0; j < size_fr; j++) {
-			weights[j] = 0;// ((float)rand() - 20) / ((float)1000);
+			weights[j] =  ((float)rand() - 20) / _st_wei;
 		}
 		where_to[i].create_links32(ptr2, frestructer32(weights, size_fr), size_fr);
 
@@ -200,7 +200,7 @@ void linking_b(heron ** from_where, int size_fr, heron ** where_to, int size_to)
 
 		weights = (float*)malloc(sizeof(float) * size_fr);
 		for (int j = 0; j < size_fr; j++) {
-			weights[j] = 0;// ((float)rand() - 200) / ((float)20000);
+			weights[j] = ((float)rand() - 20) / _st_wei;
 		}
 
 		where_to[i]->create_links32(ptr2, frestructer32( weights,size_fr), size_fr);
@@ -214,7 +214,7 @@ void linking_c(heron *** from_where, int size_fr, heron ** where_to, int size_to
 	for (int i = 0; i < size_to; i++) {
 		weights = (float*)malloc(sizeof(float) * size_fr);
 		for (int j = 0; j < size_fr; j++) {
-			weights[j] = 0;// ((float)rand() - 200) / ((float)1000);
+			weights[j] =  ((float)rand() - 20) / _st_wei;
 		}
 		where_to[i]->create_links32(from_where, frestructer32(weights, size_fr), size_fr);
 	}

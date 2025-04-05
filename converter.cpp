@@ -31,7 +31,7 @@ void mconverterf::iteration() {
 			}
 
 			timers[i*size[0] + j]--;
-			if (timers[i*size[0] + j] == 0) {
+			if (timers[i*size[0] + j] <= 0) {
 				outputs[i*size[0] + j] = 1;
 				timers[i*size[0] + j] = realTs[i*size[0] + j];
 			}

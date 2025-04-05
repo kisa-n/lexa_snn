@@ -11,6 +11,9 @@
 #define _tall_v 32  // period "BblCOKON chastoty" B TIK-ax
 #define _kakie 1000 // float n=  (float)(signed char pn) / (float)_kakie_
 
+// показатель начальных весов
+#define _st_wei ((float)690000)
+
 class heron;
 
 extern bool tik;

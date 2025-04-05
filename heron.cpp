@@ -135,13 +135,13 @@ void heron::create_links(heron ** senders, char n_links) {
 	for (i = 0; i < n_links / 32; i++) {
 		result[i] = (float*)malloc(sizeof(float)*32);
 		for (int j = 0; j < 32; j++) {
-			result[i][j] = 0;// ((float)rand() - (float)20) / (float)1000;
+			result[i][j] = ((float)rand() - (float)20) / _st_wei;
 		}
 	}
 	if (int end_num = n_links%32) {
 		result[i] = (float*)malloc(sizeof(float) * end_num);
 		for (int j = 0; j <end_num; j++) {
-			result[i][j] = 0;// ((float)rand() - (float)20) / (float)1000;
+			result[i][j] = ((float)rand() - (float)20) / _st_wei;
 		}
 	}
 
