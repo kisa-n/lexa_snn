@@ -46,22 +46,27 @@ int main() {
 	heron** la2__ = new_layer(lay2, 10);
 	h->create_links(la2__, 10);
 	*/
-	nh.list_input = new_layer( new heron [32],32);
-	nh.list_inside = new_layer(new heron[10],10);
-	nh.list_output= new_layer(new heron(),1);
+
+	heron* lay1 = new heron[32], *lay2 = new heron[10], *lay3 = new heron[2];
+
+	nh.list_input = new_layer(lay1,32);
+	nh.list_inside = new_layer(lay2,10);
+	nh.list_output= new_layer(lay3,2);
 
 	nh.num_input =32;
 	nh.num_inside=10;
-	nh.num_output=1;
+	nh.num_output=2;
 
 	linking_b(nh.list_input, 32, nh.list_inside, 10);
 	//heron**la1__ = new_layer(nh.list_input, 32);
-	(*nh.list_output)->create_links(nh.list_input, 32);
+	//(*nh.list_output)->create_links(nh.list_input, 32);
+	linking_b( nh.list_inside, 10,nh.list_output,2);
 	heron** ldl;
 	linking_b((ldl=conv->v_retlist() ), len, nh.list_input, 32);
 
 	//heron** la2__ = new_layer(nh.list_inside, 10);
-	(*nh.list_output)->create_links(nh.list_inside, 10);
+	//(*nh.list_output)->create_links(nh.list_inside, 10);
+	linking_b(nh.list_input, 10, nh.list_output, 2);
 
 	for (int i = 0; i < 10000; i++) {
 		tik=0;
@@ -77,7 +82,7 @@ int main() {
 			else printf("0");
 		}
 		printf("\n\n");
-		if ((*nh.list_output)->activations) {
+		if (nh.list_output[0]->activations) {
 			/*//printf("\n\n");
 			for (int j = 0; j < len; j++) {
 				if (ldl[j]->activations)
@@ -106,6 +111,9 @@ int main() {
 	//delete(h[1]);
 	//delete_queue(dellist);
 
+	delete[] lay1;
+	delete[] lay2;
+	delete lay3;
 	printf("the end\n");
 	/*
 	tests_h.activations = 1;
