@@ -33,9 +33,9 @@ public:
 
 
 
-	heron* list_input = 0;
-	heron* list_inside = 0;
-	heron* list_output = 0;
+	heron** list_input = 0;
+	heron** list_inside = 0;
+	heron** list_output = 0;
 
 	short num_input = 0; 
 	short num_inside = 0;
